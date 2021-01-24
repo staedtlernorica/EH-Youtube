@@ -177,6 +177,7 @@ for i in finalPlaylistStats:
 # for i in polishedPlaylistStatsInfo:
 # 	print(polishedPlaylistStatsInfo.index(i)+1, i)
 
+#https://stackoverflow.com/a/11196588/6030118
 import os
 path1 = os.getenv("USERPROFILE")
 path2 = path1 + '\\Documents\\GitHub\\EH-Youtube\\'

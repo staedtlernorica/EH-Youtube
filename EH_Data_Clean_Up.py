@@ -2,6 +2,7 @@ from datetime import date
 today = str(date.today())
 eh_csv = 'EH Playlist ' + today +".csv" 
 
+#https://stackoverflow.com/a/11196588/6030118
 import os
 path1 = os.getenv("USERPROFILE")
 path2 = path1 + '\\Documents\\GitHub\\EH-Youtube\\'
