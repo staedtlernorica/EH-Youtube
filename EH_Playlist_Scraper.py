@@ -177,17 +177,21 @@ for i in finalPlaylistStats:
 # for i in polishedPlaylistStatsInfo:
 # 	print(polishedPlaylistStatsInfo.index(i)+1, i)
 
+import os
+path1 = os.getenv("USERPROFILE")
+path2 = path1 + '\\Documents\\GitHub\\EH-Youtube\\'
+
 
 if need_to_print == 1:
 	import csv
-	path = '/Users/Work/Desktop/EH Youtube/'						#print to Desktop	
+
 	#newline='' helps prevent line skipping when printing entry
 	#https://stackoverflow.com/questions/3348460/csv-file-written-with-python-has-blank-lines-between-each-row
 	#-------------------------------------------------------------------------------------
 	#encoding='UTF-8', or will run into UnicodeEncodeError, eg with EH episode
 	#♫ Admiral Yi: Drums of War - Sean and Dean Kiner - Extra History Music
 	#https://stackoverflow.com/questions/37490428/unicodeencodeerror-with-csv-writer
-	with open(path+csvName, 'w', newline='',encoding='UTF-8') as csvfile:
+	with open(path2+csvName, 'w', newline='',encoding='UTF-8') as csvfile:
 	    csvwriter = csv.writer(csvfile)
 	    for currentRow in polishedPlaylistStatsInfo:
 	        csvwriter.writerow(currentRow)

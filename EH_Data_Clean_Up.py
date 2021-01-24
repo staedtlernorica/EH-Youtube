@@ -1,19 +1,23 @@
 from datetime import date
 today = str(date.today())
 eh_csv = 'EH Playlist ' + today +".csv" 
-folder = "/Users/Work/Desktop/EH Youtube/"
+
+import os
+path1 = os.getenv("USERPROFILE")
+path2 = path1 + '\\Documents\\GitHub\\EH-Youtube\\'
+
 
 
 #check if csv already exists
 #https://stackoverflow.com/a/82852/6030118
 from pathlib import Path
-my_file = Path(folder + eh_csv)
+my_file = Path(path2 + eh_csv)
 if my_file.is_file() ==  False:
 	import EH_Playlist_Scraper
 
 
 import csv
-with open(folder+eh_csv, newline='', encoding='UTF-8') as f:
+with open(path2 + eh_csv, newline='', encoding='UTF-8') as f:
 	reader = csv.reader(f)
 	data = list(reader)
 
@@ -93,21 +97,20 @@ for i in final_match:
 		i[1] = "Justinian & Theodora"
 
 
-#path = '/Users/Work/Desktop/csv test printing/'    #print to folder on Desktop 
-path = '/Users/Work/Desktop/EH Youtube/'                        #print to Desktop   
+
 #newline='' helps prevent line skipping when printing entry
 #https://stackoverflow.com/questions/3348460/csv-file-written-with-python-has-blank-lines-between-each-row
 #-------------------------------------------------------------------------------------
 #encoding='UTF-8', or will run into UnicodeEncodeError, eg with EH episode
 #♫ Admiral Yi: Drums of War - Sean and Dean Kiner - Extra History Music
 #https://stackoverflow.com/questions/37490428/unicodeencodeerror-with-csv-writer
-with open(path + 'EH Series Sorted ' + today + '.csv', 'w', newline='',encoding='UTF-8') as csvfile:
+with open(path2 + 'EH Series Sorted ' + today + '.csv', 'w', newline='',encoding='UTF-8') as csvfile:
 	csvwriter = csv.writer(csvfile)
 	for currentRow in final_match:
 		csvwriter.writerow(currentRow)
 		#print(currentRow)
 
-with open(path + 'EH Rest Sorted ' + today + '.csv', 'w', newline='',encoding='UTF-8') as csvfile:
+with open(path2 + 'EH Rest Sorted ' + today + '.csv', 'w', newline='',encoding='UTF-8') as csvfile:
 	csvwriter = csv.writer(csvfile)
 	for currentRow in singles_music_lies:
 		csvwriter.writerow(currentRow)
