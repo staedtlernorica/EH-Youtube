@@ -13,9 +13,31 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-#knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE)
 library("reticulate")
-#use_python("/usr/bin/python")
+use_python("/usr/bin/python")
+
+#reticulate::install_miniconda()
+#repl_python()
+os <- import("os") 
+path1 = os$getenv("USERPROFILE")
+path2 = '\\Documents\\GitHub\\EH-Youtube\\'
+path <- paste(path1, path2, sep = "")
+
+datetime <- import("datetime")
+today <- datetime$date$today()
+
+a <- "EH Playlist "
+a <-paste(a,today, sep='') 
+b <- '.csv'
+eh_csv <- paste(a, b, sep = '')
+
+
+if (file.exists(eh_csv) == FALSE){
+  
+  py_module <- import_from_path('EH_Data_Clean_Up.py')
+  
+}
 ```
 
 
@@ -26,7 +48,7 @@ eh_csv = "EH playlsit " + today +".csv"
 folder = "C:/Users/Work/Desktop/EH Youtube/"
 
 from pathlib import Path
-my_file = Path(folder + eh_csv)
+my_file = Path("C:\\Users\\longv\\Documents\\GitHub\\EH-Youtube\\")
 if my_file.is_file() == False:
   import EH_Playlist_Scraper        #problem line
 ```
