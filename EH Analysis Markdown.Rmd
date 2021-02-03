@@ -14,43 +14,6 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library("reticulate")
-use_python("/usr/bin/python")
-
-#reticulate::install_miniconda()
-#repl_python()
-os <- import("os") 
-path1 = os$getenv("USERPROFILE")
-path2 = '\\Documents\\GitHub\\EH-Youtube\\'
-path <- paste(path1, path2, sep = "")
-
-datetime <- import("datetime")
-today <- datetime$date$today()
-
-a <- "EH Playlist "
-a <-paste(a,today, sep='') 
-b <- '.csv'
-eh_csv <- paste(a, b, sep = '')
-
-
-if (file.exists(eh_csv) == FALSE){
-  
-  py_module <- import_from_path('EH_Data_Clean_Up.py')
-  
-}
-```
-
-
-```{python testsasd, eval = FALSE}
-from datetime import date
-today = str(date.today())
-eh_csv = "EH playlsit " + today +".csv"
-folder = "C:/Users/Work/Desktop/EH Youtube/"
-
-from pathlib import Path
-my_file = Path("C:\\Users\\longv\\Documents\\GitHub\\EH-Youtube\\")
-if my_file.is_file() == False:
-  import EH_Playlist_Scraper        #problem line
 ```
 
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
@@ -61,7 +24,7 @@ For final run, run R scripts separately to get up to date data, then change yout
 
 
 ```{r basic stuff}
-setwd("C:/Users/Work/Desktop/EH Youtube")
+setwd("C:/Users/longv/Documents/GitHub/EH-Youtube")
 
 #https://stackoverflow.com/a/8538071 --- date in a
 series_csv <- c('./EH Series Sorted ', format(Sys.time(), "%Y-%m-%d"), '.csv')
@@ -177,7 +140,7 @@ ap
 
 https://stackoverflow.com/questions/15624656/label-points-in-geom-point
 https://stackoverflow.com/questions/47667994/ggplot-x-axis-labels-with-all-x-axis-values/47668790#47668790
-```{r good stuff, fig.width=16, fig.height=12}
+```{r good stuff, fig.width=17, fig.height=11}
 
 #order the series (factor) by year (factor) -> need to convert year to numeric
 #https://forcats.tidyverse.org/reference/fct_reorder.html#arguments
@@ -185,9 +148,9 @@ https://stackoverflow.com/questions/47667994/ggplot-x-axis-labels-with-all-x-axi
 #https://stackoverflow.com/a/49277491
 #https://stackoverflow.com/a/23637666 
 dp <- ggplot(eh, aes(x = views, y = fct_reorder(series,seriesNo, .desc = TRUE), color = (as.numeric(year) %% 2 == 0))) + 
-  geom_point(size=3, shape = 1) + 
+  geom_point(size=4, shape = 1) + 
   theme(axis.text.y = element_text(angle = 0, vjust = 0.25)) + 
-  labs(title = "Extra History's Series Viewership, Organized by Upload Order\n", x = "Views", y = "Series", color = "Alternating Year\n") +
+  labs(title = "Extra History's Series Viewership, Organized by Series' Upload Order\n", x = "Views", y = "Series' Name", color = "Year\n") +
   scale_color_manual(labels = c("Odd Year", "Even Year"), values = c("blue", "red")) 
 
 
@@ -198,10 +161,10 @@ dp <- ggplot(eh, aes(x = views, y = fct_reorder(series,seriesNo, .desc = TRUE), 
 require(scales)
 
 #https://ggplot2.tidyverse.org/reference/annotate.html
-dp <- dp + scale_x_continuous( labels = comma) + 
+dp <- dp + scale_x_continuous(labels = comma) + 
   geom_hline(yintercept=1.5) +  
   geom_hline(yintercept=11.5) + 
-  geom_hline(yintercept=24.5) +     
+  geom_hline(yintercept=23.5) +     
   geom_hline(yintercept=36.5) + 
   geom_hline(yintercept=47.5) + 
   geom_hline(yintercept=58.5) + 
@@ -209,21 +172,37 @@ dp <- dp + scale_x_continuous( labels = comma) +
   geom_hline(yintercept=66.5) +  
   annotate("text", label = "2021", x = 5900000, y = 1) +  
   annotate("text", label = "2020", x = 5900000, y = 11)+  
-  annotate("text", label = "2019", x = 5900000, y = 24)+  
+  annotate("text", label = "2019", x = 5900000, y = 23)+  
   annotate("text", label = "2018", x = 5900000, y = 36)+  
   annotate("text", label = "2017", x = 5900000, y = 47)+  
   annotate("text", label = "2016", x = 5900000, y = 58)+  
   annotate("text", label = "2015", x = 5900000, y = 64)+  
   annotate("text", label = "2014", x = 5900000, y = 66)+  
-  annotate("text", label = "2013", x = 5900000, y = 67.25)
+  annotate("text", label = "2013", x = 5900000, y = 67.25) +
+  theme(plot.background = element_rect(fill = "white")) +
+  theme(
+  panel.background = element_rect(fill = "white"),
+  panel.grid.major = element_line(size = 0.4, linetype = 'solid',
+                                colour = "grey"), 
+  panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                colour = "grey"),
+  axis.text.x = element_text(size = 12),
+  axis.title.x = element_text(size = 20),
+  axis.text.y = element_text(size = 11),
+  axis.title.y = element_text(size = 20),
+  plot.title = element_text(size=25)
+  )
+
 
 #https://stackoverflow.com/a/36227283/6030118
 bp <- dp +
   geom_point(data = sum_views, colour = 'black', aes(x = seriesViews, y = series))
 
-dp 
-bp
 
+library(svglite)
+ggsave(file="test.png", plot=dp, width = 17, height = 11)
+
+dp
 ```
 
 

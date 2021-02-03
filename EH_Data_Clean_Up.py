@@ -46,7 +46,6 @@ for video in data:
 		series_all.append(video)
 	else:
 		singles_music_lies.append(video)
-		print(video)
 
 
 #oUtEJtBeCaQ
