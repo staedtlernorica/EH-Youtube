@@ -4,10 +4,7 @@ eh_csv = 'EH Playlist ' + today +".csv"
 
 #https://stackoverflow.com/a/11196588/6030118
 import os
-path1 = os.getenv("USERPROFILE")
-path2 = path1 + '\\Documents\\GitHub\\EH-Youtube\\'
-
-
+path2 = os.getenv("USERPROFILE") + '\\Documents\\GitHub\\EH-Youtube\\'
 
 #check if csv already exists
 #https://stackoverflow.com/a/82852/6030118
@@ -44,6 +41,7 @@ for video in data:
 		if (len(re.findall('\\b1\\b', video[0])) == 1) or ('oUtEJtBeCaQ' in video[7]):
 			series_first.append(video[0])     
 		series_all.append(video)
+		
 	else:
 		singles_music_lies.append(video)
 
@@ -95,6 +93,7 @@ for i in final_match:
 
 	elif i[7] in byz_id:
 		i[1] = "Justinian & Theodora"
+
 
 
 

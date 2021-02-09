@@ -27,6 +27,7 @@ today = str(datetime.datetime.now().date())
 [os.remove(file) for file in files if unixToDate(file) != today]
 
 
+files = glob.glob('*.{}'.format(extension))
 if files == []: 
 	import EH_Data_Clean_Up
 
