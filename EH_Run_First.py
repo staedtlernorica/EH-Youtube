@@ -28,7 +28,7 @@ today = str(datetime.datetime.now().date())
 
 
 files = glob.glob('*.{}'.format(extension))
-if files == []: 
+if len(files) != 3: 
 	import EH_Data_Clean_Up
 
 #-----------------------------------------------------------------
